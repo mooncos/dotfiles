@@ -38,4 +38,11 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 # bun
-export PATH="$HOME/.bun/bin:$PATH"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+{{- if .wsl }}
+
+# WSL
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+alias cursor-setup="$HOME/cursor-setup-wizard/cursor_setup.sh"
+{{- end }}

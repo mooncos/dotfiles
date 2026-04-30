@@ -1,2 +1,3 @@
 [data]
     kiro = {{ promptBoolOnce . "kiro" "Install Kiro CLI hooks" | not | not }}
+    wsl = {{ promptBoolOnce . "wsl" "Is this a WSL machine" | not | not }}
