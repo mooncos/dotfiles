@@ -34,5 +34,8 @@ if [ -d "$FNM_PATH" ]; then
   eval "$(fnm env --shell zsh)"
 fi
 
+# uv
+export PATH="$HOME/.local/bin:$PATH"
+
 # bun
 export PATH="$HOME/.bun/bin:$PATH"
