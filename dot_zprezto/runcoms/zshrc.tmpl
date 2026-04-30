@@ -40,6 +40,11 @@ export PATH="$HOME/.local/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+{{- if .golang }}
+
+# go
+export PATH="$HOME/go/bin:$PATH"
+{{- end }}
 {{- if .wsl }}
 
 # WSL
