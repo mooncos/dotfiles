@@ -1,0 +1,42 @@
+# Do not track files that often hold API keys, tokens, or credentials.
+# Paths are relative to your home directory (chezmoi target).
+
+.env
+.env.*
+!.env.example
+
+# Shell / cloud CLIs
+.netrc
+.aws/credentials
+.azure/
+.gcloud/
+.config/gcloud/credentials.db
+.config/gcloud/legacy_credentials/
+.config/gh/hosts.yml
+**/*_history
+.lesshst
+
+# SSH / TLS private material
+.ssh/id_*
+.ssh/*_key
+.ssh/*.pem
+*.pem
+*.p12
+*.key
+!*.pub
+
+# GnuPG private keys
+.gnupg/private-keys-v1.d/
+.gnupg/*.key
+
+# Kubernetes
+.kube/config
+
+# Editors / agents (MCP configs often embed API keys)
+.cursor/mcp.json
+
+# Local-only secrets (sourced from dot_zprofile; never add these)
+.config/secrets/
+
+# Optional: local-only overrides (uncomment if you use them)
+# .chezmoi.toml.local
