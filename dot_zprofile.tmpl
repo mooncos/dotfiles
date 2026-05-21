@@ -1,2 +1,7 @@
+{{- if .is_mac }}
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+
 # Local API keys and secrets — not synced by chezmoi (see ~/.chezmoiignore).
 [[ -r "${HOME}/.config/secrets/shell.env" ]] && source "${HOME}/.config/secrets/shell.env"

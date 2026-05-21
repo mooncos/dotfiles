@@ -38,5 +38,22 @@
 # Local-only secrets (sourced from dot_zprofile; never add these)
 .config/secrets/
 
-# Optional: local-only overrides (uncomment if you use them)
-# .chezmoi.toml.local
+# ─────────────────────────────────────────────
+# Conditional: skip based on template choices
+# ─────────────────────────────────────────────
+
+{{ if not .tmux }}
+.tmux.conf
+.tmux-status.sh
+{{ end }}
+
+{{ if not .prezto }}
+.zprezto
+.zpreztorc
+.zshenv
+.zshrc
+{{ end }}
+
+{{ if not .brewfile }}
+.Brewfile
+{{ end }}

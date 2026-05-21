@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────
+# Homebrew Bundle — managed by chezmoi
+# ─────────────────────────────────────────────
+
+# Taps
+tap "oven-sh/bun"
+
+# CLI tools
+brew "awscli"
+brew "chezmoi"
+brew "cloudflared"
+brew "cmake"
+brew "eigen"
+brew "fftw"
+brew "fnm"
+brew "glog"
+brew "pkgconf"
+brew "pybind11"
+brew "suite-sparse"
+brew "tmux"
+brew "uv"
+brew "wget"
+brew "oven-sh/bun/bun"
+
+# Casks (GUI apps)
+cask "docker-desktop"
+cask "zed@preview"
