@@ -1,3 +1,6 @@
+# Repo-only files (not deployed to home directory)
+README.md
+
 # Do not track files that often hold API keys, tokens, or credentials.
 # Paths are relative to your home directory (chezmoi target).
 
