@@ -22,6 +22,48 @@ fi
 # NOTE: Environment variables and PATH live in ~/.zprofile (single source of
 # truth). Keep only interactive-only settings (prompt, aliases, shell
 # integrations) here.
+
+# ============================================================================
+# fzf-tab configuration  (https://github.com/Aloxaf/fzf-tab#configure)
+# Must run AFTER prezto's completion module loads, hence placement at end of
+# zshrc. NOTE: zstyle precedence is by PATTERN SPECIFICITY, not definition
+# order, so some prezto defaults must be *deleted* rather than just re-set.
+# (Requires the fzf-tab native module: run `build-fzf-tab-module` once.)
+# ============================================================================
+
+# Group headers: prezto sets these formats with %F{...}%f prompt-color escapes,
+# which fzf-tab prints verbatim (no prompt expansion) -> they leak into the
+# group headers as literal text. Use plain formats (no escape sequences -
+# fzf-tab ignores them and colorizes headers itself). Override BOTH the
+# descriptions tag and the generic format (prezto sets the colored escapes on
+# both).
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*'              format '[%d]'
+
+# Colorize completion candidates (files, dirs, symlinks, ...) from LS_COLORS.
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# fzf-tab needs zsh's native menu OFF so it can capture the unambiguous prefix.
+# Prezto sets `menu select` on the broad pattern ':completion:*:*:*:*:*', which
+# is MORE SPECIFIC than ':completion:*' and therefore wins regardless of order.
+# Delete it so `menu no` actually applies; prezto's more-specific kill/cd menus
+# (':completion:*:*:kill:*', etc.) remain untouched.
+zstyle -d ':completion:*:*:*:*:*' menu
+zstyle ':completion:*' menu no
+
+# Don't sort when completing git-checkout (keep ref order).
+zstyle ':completion:*:git-checkout:*' sort false
+
+# Preview a directory's contents with eza when completing `cd`.
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+
+# Custom fzf flags (fzf-tab does NOT follow FZF_DEFAULT_OPTS by default).
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# Also honor FZF_DEFAULT_OPTS. NOTE: some flags can break fzf-tab (Aloxaf/fzf-tab#455).
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+# Switch between completion groups with < and > (default is F1/F2).
+zstyle ':fzf-tab:*' switch-group '<' '>'
 {{- if .wsl }}
 
 # WSL
