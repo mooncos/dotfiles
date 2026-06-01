@@ -6,10 +6,8 @@
 #
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
+# This also pulls in all tool PATH/env, since .zprofile is the single source
+# of truth for environment setup.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
-fi
-# cargo
-if [ -f "$HOME/.cargo/env" ]; then
-  . "$HOME/.cargo/env"
 fi

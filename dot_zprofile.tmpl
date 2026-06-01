@@ -3,5 +3,52 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
 
+#
+# Single source of truth for environment + PATH.
+# Sourced for login shells directly, for top-level non-login shells via
+# prezto's zshenv, and inherited by all subshells. Interactive-only settings
+# (prompt, aliases, shell integrations) belong in .zshrc instead.
+#
+
+# Keep PATH/fpath free of duplicates.
+typeset -gU path fpath
+
+# Rust / Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# uv and other user-local tools (~/.local/bin)
+[ -d "$HOME/.local/bin" ] && path=("$HOME/.local/bin" $path)
+
+# fnm (Node version manager)
+if [ -d "$HOME/.local/share/fnm" ]; then
+  path=("$HOME/.local/share/fnm" $path)
+  eval "$(fnm env --shell zsh)"
+fi
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+[ -d "$BUN_INSTALL/bin" ] && path=("$BUN_INSTALL/bin" $path)
+{{- if .golang }}
+
+# Go
+[ -d "$HOME/go/bin" ] && path=("$HOME/go/bin" $path)
+{{- end }}
+{{- if .wsl }}
+
+# WSL
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+{{- end }}
+
+# Application environment
+export AWS_PROFILE="GFTLIoT-Bedrock"
+export AWS_REGION="eu-west-1"
+export TYPST_FONT_PATHS="$HOME/repo/calmly-touying/Ericsson Hilda Font/OTF"
+
+# grep match color. Uses 16-color ANSI codes so it follows the active terminal
+# theme (Ghostty/Carbonfox) instead of a hardcoded RGB. 01;31 = bold red.
+# Set before prezto loads so its '37;45' (white-on-magenta) default is skipped.
+export GREP_COLOR='01;31'         # BSD grep (/usr/bin/grep)
+export GREP_COLORS='mt=01;31'     # GNU grep
+
 # Local API keys and secrets — not synced by chezmoi (see ~/.chezmoiignore).
 [[ -r "${HOME}/.config/secrets/shell.env" ]] && source "${HOME}/.config/secrets/shell.env"

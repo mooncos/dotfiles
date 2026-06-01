@@ -38,6 +38,7 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
+  'fzf-tab' \
   'git' \
   'history-substring-search' \
   'prompt'
@@ -105,10 +106,12 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 #
 
 # Set the query found color.
-# zstyle ':prezto:module:history-substring-search:color' found ''
+# Subtle: foreground + bold only (no background block). Named colors follow
+# the active terminal palette (Ghostty/Carbonfox) instead of a hardcoded RGB.
+zstyle ':prezto:module:history-substring-search:color' found 'fg=green,bold'
 
 # Set the query not found color.
-# zstyle ':prezto:module:history-substring-search:color' not-found ''
+zstyle ':prezto:module:history-substring-search:color' not-found 'fg=red,bold'
 
 # Set the search globbing flags.
 # zstyle ':prezto:module:history-substring-search' globbing-flags ''

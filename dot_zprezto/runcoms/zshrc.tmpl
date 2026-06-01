@@ -19,38 +19,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+# NOTE: Environment variables and PATH live in ~/.zprofile (single source of
+# truth). Keep only interactive-only settings (prompt, aliases, shell
+# integrations) here.
+{{- if .wsl }}
 
+# WSL
+alias cursor-setup="$HOME/cursor-setup-wizard/cursor_setup.sh"
+{{- end }}
 {{- if .kiro }}
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"
-{{- end }}
-
-export AWS_PROFILE="GFTLIoT-Bedrock"
-export AWS_REGION="eu-west-1"
-export TYPST_FONT_PATHS="$HOME/repo/calmly-touying/Ericsson Hilda Font/OTF"
-
-# fnm
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env --shell zsh)"
-fi
-
-# uv
-export PATH="$HOME/.local/bin:$PATH"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-{{- if .golang }}
-
-# go
-export PATH="$HOME/go/bin:$PATH"
-{{- end }}
-{{- if .wsl }}
-
-# WSL
-export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
-alias cursor-setup="$HOME/cursor-setup-wizard/cursor_setup.sh"
 {{- end }}
